@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS4 - Part 2</title>
+    <style>
+        .song-details span {
+            display: block;
+        }
+        .song-details {
+            margin-bottom: 10px;
+        }
+    </style>
+    <!-- Load jQuery -->
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        const formatSong = ( info ) => {
+            let genreText;
+            if ( info.genre.length === 1 ) {
+                genreText = 'Genre: ' + info.genre[0];
+            } else {
+                genreText = 'Genres: ' + info.genre.join( ', ' );
+            }
+            return $('<div>')
+                .addClass('song-details')
+                .append(
+                    $('<strong>').text( info.title ),
+                    $('<span>').text( 'Artist: ' + info.artist ),
+                    $('<span>').text( genreText ),
+                    $('<span>').text( 'Released ' + info.year )
+                );
+        };
+        // Need to wait for document to load
+        document.addEventListener( 'DOMContentLoaded', () => {
+            const $container = $('#song-container');
+            // Assignment says that we need to use $.get() so not using the
+            // more specific $.getJSON()
+            $.get(
+                './songs.json',
+                (songs) => $container.append( ...songs.map(formatSong) ),
+                'json'
+            );
+        } );
+    </script>
+</head>
+<body>
+
+<div id="song-container"></div>
+</body>
+</html>

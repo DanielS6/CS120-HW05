@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS4 - Part 3</title>
+    <!-- Load jQuery -->
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        // I interpret the "display the list of songs" not to mean an HTML list
+        // but rather just a list, since we are not supposed to show anything
+        // else (like bullet points; yes, those could be removed with CSS, but
+        // it would be unlikely that the expectation is an HTML list with the
+        // bullets removed) so I put each song in a <p>
+        const getSongsWithGenre = ( songs, genre ) => {
+            return songs.filter( s => s.genre.includes( genre ) )
+                .map( s => $('<p>').text( s.title ) );
+        };
+        const getGenresOptions = ( songs ) => {
+            const allGenres = {};
+            songs.forEach( ( s ) => s.genre.forEach( g => allGenres[g] = true ) );
+            return Object.keys( allGenres ).map(
+                ( g ) => $('<option>').attr('value', g).text(g)
+            );
+        };
+        const handleForm = ( songs ) => {
+            const $select = $('#filter-genre');
+            const $submitBtn = $('#filter-submit');
+            const $songDisplay = $('#song-container');
+            $select.append( ...getGenresOptions( songs ) );
+            $submitBtn.on('click', (e) => {
+                e.preventDefault();
+                $songDisplay.empty();
+                if ( $select.val() === 'none' ) {
+                    return;
+                }
+                $songDisplay.append(
+                    ...getSongsWithGenre( songs, $select.val() )
+                );
+            } );
+        };
+        // Need to wait for document to load
+        document.addEventListener( 'DOMContentLoaded', () => {
+            const $container = $('#song-container');
+            // Assignment says that we need to read the data and store it
+            // the way it was done in json2, which required using $.get(), so
+            // not using the more specific $.getJSON()
+            $.get(
+                './songs.json',
+                (songs) => handleForm(songs),
+                'json'
+            );
+        } );
+    </script>
+</head>
+<body>
+
+<form id="filter-form">
+    <select id="filter-genre">
+        <option value="none">Select a genre</option>
+    </select>
+
+    <button id="filter-submit">Filter</button>
+</form>
+
+<div id="song-container"></div>
+
+</body>
+</html>

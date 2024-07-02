@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PS4 - Part 1</title>
+    <script>
+        // Need to wait for document to load
+        document.addEventListener( 'DOMContentLoaded', () => {
+            const songs = [
+{
+    "title": "Firework",
+    "artist": "Katy Perry",
+    "year": 2010,
+    "genre": ["Pop"]
+},
+{
+    "title": "Your Man",
+    "artist": "Josh Turner",
+    "year": 2005,
+    "genre": ["Country"]
+},
+{
+    "title": "Dance The Night",
+    "artist": "Dua Lipa",
+    "year": 2023,
+    "genre": ["Pop", "Disco"]
+},
+{
+    "title": "Believe",
+    "artist": "Cher",
+    "year": 1998,
+    "genre": ["Pop"]
+},
+{
+    "title": "Starships",
+    "artist": "Nicki Minaj",
+    "year": 2012,
+    "genre": ["Pop"]
+},
+{
+    "title": "Espresso",
+    "artist": "Sabrina Carpenter",
+    "year": 2024,
+    "genre": ["Pop", "Disco"]
+},
+{
+    "title": "Shivers",
+    "artist": "Ed Sheeran",
+    "year": 2021,
+    "genre": ["Pop"]
+},
+{
+    "title": "Let's Get Ridiculous",
+    "artist": "Redfoo",
+    "year": 2013,
+    "genre": ["EDM"]
+},
+{
+    "title": "No Roots",
+    "artist": "Alice Merton",
+    "year": 2016,
+    "genre": ["Pop"]
+},
+{
+    "title": "Nonsense",
+    "artist": "Sabrina Carpenter",
+    "year": 2022,
+    "genre": ["Pop"]
+}
+];
+        document.querySelector('body').append(
+            document.createTextNode( JSON.stringify( songs ) )
+        );
+        } );
+    </script>
+</head>
+<body>
+</body>
+</html>
